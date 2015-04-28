@@ -8,13 +8,7 @@ public class BowlingGame {
 	private List<Frame> frames = new ArrayList<Frame>();
 
 	public int getTotalScore() {
-		int totalScore = 0;
-		FrameScorer frameScorer = new FrameScorer(this.frames);
-		frameScorer.calculateFrameScores();
-		for(Frame frame : this.frames){
-			totalScore += frame.getFrameTotalScore();
-		}
-		return totalScore;
+		return -1;
 	}
 
 	public void createFrame(int frameNumber, int roll1, Integer roll2) {

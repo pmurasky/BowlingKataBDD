@@ -8,7 +8,12 @@ public class BowlingGame {
 	private List<Frame> frames = new ArrayList<Frame>();
 
 	public int getTotalScore() {
-		return -1;
+		int totalScore = 0;
+		for (Frame frame : frames) {
+			totalScore = totalScore + frame.getRoll1() + frame.getRoll2();
+		}
+		
+		return totalScore;
 	}
 
 	public void createFrame(int frameNumber, int roll1, Integer roll2) {
@@ -22,5 +27,7 @@ public class BowlingGame {
 	public void createTenthFrame(int frameNumber, int roll1, Integer roll2, Integer roll3) {
 		frames.add(new Frame(frameNumber, roll1, roll2, roll3));
 	}
+	
+
 
 }

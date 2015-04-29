@@ -33,6 +33,7 @@ private BowlingGame game;
 				{createAllGutterBallGame()},
 				{createAllSpareGame()},
 				{createStrikesAndSpareGame()},
+				{createAllOpenFramesGame()},
 				{createAllOpenFramesUntilAllStrikesInTenthGame()}
 		});
 	}
@@ -75,6 +76,11 @@ private BowlingGame game;
 	private static TestGame createAllOpenFramesUntilAllStrikesInTenthGame(){
 		return new TestGame(100, Lists.newArrayList(new Frame(1,9,0), new Frame(2,6,0), new Frame(3,7,2), new Frame(4,3,6),
 				new Frame(5,8,1),new Frame(6,4,4),new Frame(7,3,1),new Frame(8,0,8),new Frame(9,5,3),new Frame(10,10,10,10)));
+	}
+	
+	private static TestGame createAllOpenFramesGame(){
+		return new TestGame(75, Lists.newArrayList(new Frame(1,9,0), new Frame(2,6,0), new Frame(3,7,2), new Frame(4,3,6),
+				new Frame(5,8,1),new Frame(6,4,4),new Frame(7,3,1),new Frame(8,0,8),new Frame(9,5,3),new Frame(10,3,2)));
 	}
 	
 	

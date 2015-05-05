@@ -6,14 +6,13 @@ import java.util.List;
 public class BowlingGame {
 	
 	private List<Frame> frames = new ArrayList<Frame>();
+	private FrameToRollConverter converter = new FrameToRollConverter();
 
 	public int getTotalScore() {
 		int totalScore = 0;
-		FrameScorer frameScorer = new FrameScorer(this.frames);
-		frameScorer.calculateFrameScores();
-		for(Frame frame : this.frames){
-			totalScore += frame.getFrameTotalScore();
-		}
+		
+		
+		
 		return totalScore;
 	}
 

@@ -5,7 +5,7 @@ public class RichsBowlingGame implements BowlingGame {
 
   @Override
   public Integer getTotalScore() {
-    return null;
+    return 0;
   }
 
   @Override

@@ -4,13 +4,20 @@ import static com.ford.bowling.test.GameFactory.newGame;
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
 
+import org.junit.Before;
 import org.junit.Test;
 
 public class BowlingTests {
 
+  private BowlingGame game;
+  
+  @Before
+  public void beforeEach() {
+    game = newGame();
+  }
+  
   @Test
   public void allGuttersIsZero() {
-    BowlingGame game = newGame();
     for (int frame = 1; frame < 11; frame++) {
       game.createFrame(frame, 0, 0);
     }
@@ -19,7 +26,6 @@ public class BowlingTests {
 
   @Test
   public void allOnesIsTwenty() {
-    BowlingGame game = newGame();
     for (int frame = 1; frame < 11; frame++) {
       game.createFrame(frame, 1, 1);
     }

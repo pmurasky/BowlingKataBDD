@@ -10,20 +10,20 @@ import org.junit.Test;
 public class BowlingTests {
 
   private BowlingGame game;
-  
+
   @Before
   public void beforeEach() {
     game = newGame();
   }
-  
-  private void createFrame(int frame, int...rolls) {
-    game.createFrame(frame,rolls);  
+
+  private void createFrame(int frame, int... rolls) {
+    game.createFrame(frame, rolls);
   }
-  
+
   private void assertThatScoreIs(Integer expected) {
     assertThat(game.getTotalScore(), is(expected));
   }
-  
+
   @Test
   public void allGuttersIsZero() {
     for (int frame = 1; frame < 11; frame++) {

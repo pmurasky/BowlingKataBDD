@@ -20,32 +20,32 @@ public class BowlingTests {
     game.createFrame(frame, rolls);
   }
 
+  private void createFrames(int count, int startingFrame, int... rolls) {
+    for (int frame = startingFrame; frame < startingFrame + count; frame++) {
+      createFrame(frame, rolls);
+    }
+  }
+
   private void assertThatScoreIs(Integer expected) {
     assertThat(game.getTotalScore(), is(expected));
   }
 
   @Test
   public void allGuttersIsZero() {
-    for (int frame = 1; frame < 11; frame++) {
-      createFrame(frame, 0, 0);
-    }
+    createFrames(10, 1, 0, 0);
     assertThatScoreIs(0);
   }
 
   @Test
   public void allOnesIsTwenty() {
-    for (int frame = 1; frame < 11; frame++) {
-      createFrame(frame, 1, 1);
-    }
+    createFrames(10,1,1,1);
     assertThatScoreIs(20);
   }
 
   @Test
   public void oneStrikeIsTen() {
     createFrame(1, 10);
-    for (int frame = 2; frame < 11; frame++) {
-      createFrame(frame);
-    }
+    createFrames(9,2);
     assertThatScoreIs(10);
   }
 }

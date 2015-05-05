@@ -20,12 +20,16 @@ public class BowlingTests {
     game.createFrame(frame,rolls);  
   }
   
+  private void assertThatScoreIs(Integer expected) {
+    assertThat(game.getTotalScore(), is(expected));
+  }
+  
   @Test
   public void allGuttersIsZero() {
     for (int frame = 1; frame < 11; frame++) {
       createFrame(frame, 0, 0);
     }
-    assertThat(game.getTotalScore(), is(0));
+    assertThatScoreIs(0);
   }
 
   @Test
@@ -33,6 +37,6 @@ public class BowlingTests {
     for (int frame = 1; frame < 11; frame++) {
       createFrame(frame, 1, 1);
     }
-    assertThat(game.getTotalScore(), is(20));
+    assertThatScoreIs(20);
   }
 }

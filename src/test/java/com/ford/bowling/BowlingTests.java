@@ -48,4 +48,11 @@ public class BowlingTests {
     createFrames(9,2);
     assertThatScoreIs(10);
   }
+  
+  @Test
+  public void twoStrikesIsThirty() {
+    createFrames(2,1,10);
+    createFrames(8,3);
+    assertThatScoreIs(30);
+  }
 }

@@ -16,10 +16,14 @@ public class BowlingTests {
     game = newGame();
   }
   
+  private void createFrame(int frame, int...rolls) {
+    game.createFrame(frame,rolls);  
+  }
+  
   @Test
   public void allGuttersIsZero() {
     for (int frame = 1; frame < 11; frame++) {
-      game.createFrame(frame, 0, 0);
+      createFrame(frame, 0, 0);
     }
     assertThat(game.getTotalScore(), is(0));
   }
@@ -27,7 +31,7 @@ public class BowlingTests {
   @Test
   public void allOnesIsTwenty() {
     for (int frame = 1; frame < 11; frame++) {
-      game.createFrame(frame, 1, 1);
+      createFrame(frame, 1, 1);
     }
     assertThat(game.getTotalScore(), is(20));
   }

@@ -133,8 +133,6 @@
 		</dependency>
 	</dependencies>
 	<scm>
-		<url>https://github.com/rdammkoehler/medusa.git</url>
-		<connection>git@github.com:rdammkoehler/medusa.git</connection>
 		<developerConnection>Rich Dammkoehler</developerConnection>
 	</scm>
 	<organization>

@@ -39,4 +39,13 @@ public class BowlingTests {
     }
     assertThatScoreIs(20);
   }
+
+  @Test
+  public void oneStrikeIsTen() {
+    createFrame(1, 10);
+    for (int frame = 2; frame < 11; frame++) {
+      createFrame(frame);
+    }
+    assertThatScoreIs(10);
+  }
 }

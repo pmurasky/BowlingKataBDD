@@ -77,4 +77,11 @@ public class BowlingTests {
     assertThatScoreIs(10);
   }
   
+  @Test
+  public void oneSpareFollowedByFiveZeroIsTwenty() {
+    createFrame(1,8,2);
+    createFrame(2,5,0);
+    createFrames(8,3);
+    assertThatScoreIs(20);
+  }
 }

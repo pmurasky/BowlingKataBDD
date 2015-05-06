@@ -13,6 +13,8 @@ public class RichsBowlingGame implements BowlingGame {
       int rollOffset = frameOffset(frame);
       if (isStrike(rollOffset)) {
         score += getStrikeBonus(rollOffset);
+      } else if (getFrameBaseScore(rollOffset) == 10) {
+        score += rolls[rollOffset + 2];
       }
       score += getFrameBaseScore(rollOffset);
     }

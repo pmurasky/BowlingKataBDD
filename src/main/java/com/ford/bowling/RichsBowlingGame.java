@@ -42,12 +42,13 @@ public class RichsBowlingGame implements BowlingGame {
   private int getStrikeBonus(int frame) {
     int nextFrame = frame + 1;
     int bonus = 0;
+    if (frame < 9 && isStrike(nextFrame)) {
+      bonus += rollOneOf(nextFrame + 1);
+    }
     if (frame < 10) {
       bonus += getFrameBaseScore(nextFrame);
-      if (isStrike(nextFrame) && rollTwoOf(nextFrame) == 0) {
-        bonus += rollOneOf(nextFrame + 1);
-      }
-    } else {
+    }
+    if (frame == 10) {
       bonus += bonusBallOfFrame10();
     }
     return bonus;
@@ -64,7 +65,7 @@ public class RichsBowlingGame implements BowlingGame {
   private int bonusBallOfFrame10() {
     return rolls[20];
   }
-  
+
   private int rollOffsetFor(int frame) {
     return (frame - 1) * 2;
   }

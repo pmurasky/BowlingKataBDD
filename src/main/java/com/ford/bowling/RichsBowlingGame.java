@@ -28,7 +28,7 @@ public class RichsBowlingGame implements BowlingGame {
   }
 
   private boolean isStrike(int frame) {
-    return rollOneOf(frame) == 10;
+    return rollOneOf(frame) == 10 && (frame == 10 || rollTwoOf(frame) == 0);
   }
 
   private boolean isSpare(int frame) {

@@ -66,22 +66,30 @@ public class BowlingTests {
   @Test
   public void allStrikesIsThreeHundred() {
     createFrames(9, 1, 10);
-    createFrame(10,10,10,10);
+    createFrame(10, 10, 10, 10);
     assertThatScoreIs(300);
   }
-  
+
   @Test
   public void oneSpareIsTen() {
-    createFrame(1,8,2);
-    createFrames(9,2);
+    createFrame(1, 8, 2);
+    createFrames(9, 2);
     assertThatScoreIs(10);
   }
-  
+
   @Test
   public void oneSpareFollowedByFiveZeroIsTwenty() {
-    createFrame(1,8,2);
-    createFrame(2,5,0);
-    createFrames(8,3);
+    createFrame(1, 8, 2);
+    createFrame(2, 5, 0);
+    createFrames(8, 3);
     assertThatScoreIs(20);
+  }
+
+  @Test
+  public void spareStrikeGuttersIsThirty() {
+    createFrame(1, 8, 2);
+    createFrame(2, 10);
+    createFrames(8, 3);
+    assertThatScoreIs(30);
   }
 }

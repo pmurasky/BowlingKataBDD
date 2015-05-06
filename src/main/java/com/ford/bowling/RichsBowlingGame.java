@@ -28,7 +28,7 @@ public class RichsBowlingGame implements BowlingGame {
   }
 
   private boolean isStrike(int frame) {
-    return rollOneOf(frame) == 10 && (itsTheTenthFrame(frame) || rollTwoOf(frame) == 0);
+    return rollOneOf(frame) == 10 && (itsTheTenth(frame) || rollTwoOf(frame) == 0);
   }
 
   private boolean isSpare(int frame) {
@@ -40,20 +40,20 @@ public class RichsBowlingGame implements BowlingGame {
   }
 
   private int getStrikeBonus(int frame) {
-    int nextFrame = frame + 1;
     int bonus = 0;
-    if (itsTheTenthFrame(frame)) {
+    if (itsTheTenth(frame)) {
       bonus += bonusBallOfFrame10();
     } else {
+      int nextFrame = frame + 1;
       bonus += getFrameBaseScore(nextFrame);
-      if (frame < 9 && isStrike(nextFrame)) {
+      if (isStrike(nextFrame) && frame < 9) {
         bonus += rollOneOf(nextFrame + 1);
       }
     }
     return bonus;
   }
 
-  private boolean itsTheTenthFrame(int frame) {
+  private boolean itsTheTenth(int frame) {
     return frame == 10;
   }
 

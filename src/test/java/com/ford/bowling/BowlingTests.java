@@ -62,4 +62,11 @@ public class BowlingTests {
     createFrames(7, 4);
     assertThatScoreIs(60);
   }
+
+  @Test
+  public void allStrikesIsThreeHundred() {
+    createFrames(9, 1, 10);
+    createFrame(10,10,10,10);
+    assertThatScoreIs(300);
+  }
 }

@@ -1,5 +1,7 @@
 package com.ford.bowling;
 
+import java.util.Arrays;
+
 public class RichsBowlingGame implements BowlingGame {
 
   private int[] rolls = new int[21];
@@ -8,11 +10,11 @@ public class RichsBowlingGame implements BowlingGame {
   public Integer getTotalScore() {
     int score = 0;
     for (int frame = 1; frame < 11; frame++) {
-      int frameOffset = frameOffset(frame);
-      if (isStrike(frameOffset)) {
-        score += getStrikeBonus(frameOffset);
+      int rollOffset = frameOffset(frame);
+      if (isStrike(rollOffset)) {
+        score += getStrikeBonus(rollOffset);
       }
-      score += getFrameBaseScore(frameOffset);
+      score += getFrameBaseScore(rollOffset);
     }
     return score;
   }
@@ -22,16 +24,16 @@ public class RichsBowlingGame implements BowlingGame {
     System.arraycopy(rolls, 0, this.rolls, frameOffset(frame), rolls.length);
   }
 
-  private int getFrameBaseScore(int frameOffset) {
-    return rolls[frameOffset] + rolls[frameOffset + 1];
+  private int getFrameBaseScore(int rollOffset) {
+    return rolls[rollOffset] + rolls[rollOffset + 1];
   }
 
-  private int getStrikeBonus(int frameOffset) {
+  private int getStrikeBonus(int rollOffset) {
     int bonus = 0;
-    if (frameOffset < 11) {
-      bonus = rolls[frameOffset + 2] + rolls[frameOffset + 3];
-      if (isStrike(frameOffset + 2)) {
-        bonus += rolls[frameOffset + 4];
+    if (rollOffset < 18) {
+      bonus = rolls[rollOffset + 2] + rolls[rollOffset + 3];
+      if (isStrike(rollOffset + 2)) {
+        bonus += rolls[rollOffset + 4];
       }
     }
     return bonus;

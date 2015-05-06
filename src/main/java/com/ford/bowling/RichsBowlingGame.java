@@ -9,7 +9,7 @@ public class RichsBowlingGame implements BowlingGame {
     int score = 0;
     for (int frame = 1; frame < 11; frame++) {
       int frameOffset = frameOffset(frame);
-      if ( isStrike(frameOffset) ) {
+      if (isStrike(frameOffset)) {
         score += getStrikeBonus(frameOffset);
       }
       score += getFrameBaseScore(frameOffset);
@@ -21,22 +21,25 @@ public class RichsBowlingGame implements BowlingGame {
   public void createFrame(int frame, int... rolls) {
     System.arraycopy(rolls, 0, this.rolls, frameOffset(frame), rolls.length);
   }
-  
+
   private int getFrameBaseScore(int frameOffset) {
-    return rolls[frameOffset] + rolls[frameOffset+1];
+    return rolls[frameOffset] + rolls[frameOffset + 1];
   }
-  
+
   private int getStrikeBonus(int frameOffset) {
-    return rolls[frameOffset+2] + rolls[frameOffset+3];
+    int bonus = 0;
+    if (frameOffset < 11) {
+      bonus = rolls[frameOffset + 2] + rolls[frameOffset + 3];
+    }
+    return bonus;
   }
-  
+
   private boolean isStrike(int frameOffset) {
     return rolls[frameOffset] == 10;
   }
 
   private int frameOffset(int frame) {
-    return (frame-1)*2;
+    return (frame - 1) * 2;
   }
 
 }
-  

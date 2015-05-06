@@ -31,15 +31,15 @@ public class RichsBowlingGame implements BowlingGame {
         }
         return score;
       }
-      
+
       private boolean isStrike() {
         return firstBall() == 10 && (tenthFrame || secondBall() == 0);
       }
-      
+
       private boolean isSpare() {
         return baseScore() == 10 && secondBall() > 0;
       }
-      
+
       private int baseScore() {
         return firstBall() + secondBall();
       }
@@ -49,19 +49,15 @@ public class RichsBowlingGame implements BowlingGame {
         if (tenthFrame) {
           bonus = bonusBall();
         } else {
-          if (firstBallOfNextFrame() == 10) {
-            if (ninthFrame) {
-              bonus = firstBallOfNextFrame() + secondBallOfNextFrame();
-            } else {
-              bonus = firstBallOfNextFrame() + firstBallOfNextFramesNextFrame();
-            }
+          if (firstBallOfNextFrame() == 10 && !ninthFrame) {
+            bonus = firstBallOfNextFrame() + firstBallOfNextFramesNextFrame();
           } else {
             bonus = firstBallOfNextFrame() + secondBallOfNextFrame();
           }
         }
         return bonus;
       }
-      
+
       private int spareBonus() {
         return firstBallOfNextFrame();
       }
@@ -72,12 +68,12 @@ public class RichsBowlingGame implements BowlingGame {
 
       private int secondBall() {
         return frameRolls[1];
-      }      
+      }
 
       private int firstBallOfNextFrame() {
         return frameRolls[2];
       }
-      
+
       private int secondBallOfNextFrame() {
         return frameRolls[3];
       }
@@ -85,7 +81,7 @@ public class RichsBowlingGame implements BowlingGame {
       private int firstBallOfNextFramesNextFrame() {
         return frameRolls[4];
       }
-      
+
       private int bonusBall() {
         return firstBallOfNextFrame();
       }

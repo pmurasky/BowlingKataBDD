@@ -35,7 +35,7 @@ public class RichsBowlingGame implements BowlingGame {
       private boolean isStrike() {
         return firstBall() == 10 && (tenthFrame || secondBall() == 0);
       }
-      
+
       private boolean nextFrameIsStrike() {
         return firstBallOfNextFrame() == 10;
       }
@@ -52,12 +52,12 @@ public class RichsBowlingGame implements BowlingGame {
         int bonus = 0;
         if (tenthFrame) {
           bonus = bonusBall();
+        } else if (ninthFrame) {
+          bonus = firstBallOfNextFrame() + secondBallOfNextFrame();
+        } else if (nextFrameIsStrike()) {
+          bonus = firstBallOfNextFrame() + firstBallOfNextFramesNextFrame();
         } else {
-          if (nextFrameIsStrike() && !ninthFrame) {
-            bonus = firstBallOfNextFrame() + firstBallOfNextFramesNextFrame();
-          } else {
-            bonus = firstBallOfNextFrame() + secondBallOfNextFrame();
-          }
+          bonus = firstBallOfNextFrame() + secondBallOfNextFrame();
         }
         return bonus;
       }

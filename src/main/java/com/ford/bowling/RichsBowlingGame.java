@@ -13,12 +13,16 @@ public class RichsBowlingGame implements BowlingGame {
       int rollOffset = frameOffset(frame);
       if (isStrike(rollOffset)) {
         score += getStrikeBonus(rollOffset);
-      } else if (getFrameBaseScore(rollOffset) == 10) {
+      } else if (isSpare(rollOffset)) {
         score += rolls[rollOffset + 2];
       }
       score += getFrameBaseScore(rollOffset);
     }
     return score;
+  }
+
+  private boolean isSpare(int rollOffset) {
+    return !isStrike(rollOffset) && getFrameBaseScore(rollOffset) == 10;
   }
 
   @Override

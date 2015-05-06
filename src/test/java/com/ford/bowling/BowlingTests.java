@@ -92,4 +92,12 @@ public class BowlingTests {
     createFrames(8, 3);
     assertThatScoreIs(30);
   }
+
+  @Test
+  public void tenthFrameSpareStrikeIsTwenty() {
+    createFrames(9, 1);
+    createFrame(10, 8, 2, 10);
+    assertThatScoreIs(20);
+  }
+
 }

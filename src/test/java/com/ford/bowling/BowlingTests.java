@@ -38,21 +38,28 @@ public class BowlingTests {
 
   @Test
   public void allOnesIsTwenty() {
-    createFrames(10,1,1,1);
+    createFrames(10, 1, 1, 1);
     assertThatScoreIs(20);
   }
 
   @Test
   public void oneStrikeIsTen() {
     createFrame(1, 10);
-    createFrames(9,2);
+    createFrames(9, 2);
     assertThatScoreIs(10);
   }
-  
+
   @Test
   public void twoStrikesIsThirty() {
-    createFrames(2,1,10);
-    createFrames(8,3);
+    createFrames(2, 1, 10);
+    createFrames(8, 3);
     assertThatScoreIs(30);
+  }
+
+  @Test
+  public void threeStrikesIsSixty() {
+    createFrames(3, 1, 10);
+    createFrames(7, 4);
+    assertThatScoreIs(60);
   }
 }

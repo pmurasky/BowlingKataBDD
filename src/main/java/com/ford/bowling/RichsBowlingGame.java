@@ -30,6 +30,9 @@ public class RichsBowlingGame implements BowlingGame {
     int bonus = 0;
     if (frameOffset < 11) {
       bonus = rolls[frameOffset + 2] + rolls[frameOffset + 3];
+      if (isStrike(frameOffset + 2)) {
+        bonus += rolls[frameOffset + 4];
+      }
     }
     return bonus;
   }

@@ -46,13 +46,17 @@ public class RichsBowlingGame implements BowlingGame {
     } else {
       int nextFrame = frame + 1;
       bonus += getFrameBaseScore(nextFrame);
-      if (isStrike(nextFrame) && frame < 9) {
+      if (isStrike(nextFrame) && beforeTheNinth(frame)) {
         bonus += rollOneOf(nextFrame + 1);
       }
     }
     return bonus;
   }
 
+  private boolean beforeTheNinth(int frame) {
+    return frame < 9;
+  }
+  
   private boolean itsTheTenth(int frame) {
     return frame == 10;
   }

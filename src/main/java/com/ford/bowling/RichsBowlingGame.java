@@ -1,6 +1,5 @@
 package com.ford.bowling;
 
-
 public class RichsBowlingGame implements BowlingGame {
 
   private int[] rolls = new int[21];
@@ -9,13 +8,12 @@ public class RichsBowlingGame implements BowlingGame {
   public Integer getTotalScore() {
     int score = 0;
     for (int frame = 1; frame < 11; frame++) {
-      int rollOffset = rollOffsetFor(frame);
-      if (isStrike(rollOffset)) {
-        score += getStrikeBonus(rollOffset);
-      } else if (isSpare(rollOffset)) {
-        score += getSpareBonus(rollOffset);
+      if (isStrike(frame)) {
+        score += getStrikeBonus(frame);
+      } else if (isSpare(frame)) {
+        score += getSpareBonus(frame);
       }
-      score += getFrameBaseScore(rollOffset);
+      score += getFrameBaseScore(frame);
     }
     return score;
   }
@@ -25,34 +23,42 @@ public class RichsBowlingGame implements BowlingGame {
     System.arraycopy(rolls, 0, this.rolls, rollOffsetFor(frame), rolls.length);
   }
 
-  private int getSpareBonus(int rollOffset) {
-    return rolls[rollOffset + 2];
+  private int getSpareBonus(int frame) {
+    return rollOneOf(frame + 1);
   }
 
-  private boolean isSpare(int rollOffset) {
-    return getFrameBaseScore(rollOffset) == 10;
+  private boolean isSpare(int frame) {
+    return getFrameBaseScore(frame) == 10;
   }
 
-  private int getFrameBaseScore(int rollOffset) {
-    return rolls[rollOffset] + rolls[rollOffset + 1];
+  private int getFrameBaseScore(int frame) {
+    return rollOneOf(frame) + rollTwoOf(frame);
   }
 
-  private int getStrikeBonus(int rollOffset) {
+  private int getStrikeBonus(int frame) {
+    int nextFrame = frame + 1;
     int bonus = 0;
-    if (rollOffset < 18) {
-      bonus = rolls[rollOffset + 2] + rolls[rollOffset + 3];
-      if (rolls[rollOffset + 3] == 0 && isStrike(rollOffset + 2)) { 
-        bonus += rolls[rollOffset + 4];
+    if (frame < 10) {
+      bonus += rollOneOf(nextFrame) + rollTwoOf(nextFrame);
+      if (isStrike(nextFrame) && rollTwoOf(nextFrame) == 0) {
+        bonus += rollOneOf(nextFrame + 1);
       }
     } else {
-      bonus = rolls[rollOffset + 2];
+      bonus += rollOneOf(nextFrame);
     }
     return bonus;
   }
-  //what's making me nuts here is that we ended up with a frameless solution but frameness is coming into play
-//add method for firstBallOfFrameId and secondBallOfFrameId, frame ten might have bonusball?
-  private boolean isStrike(int rollOffset) { //change semantics back to frames
-    return rolls[rollOffset] == 10;
+
+  private int rollOneOf(int frame) {
+    return rolls[rollOffsetFor(frame)];
+  }
+
+  private int rollTwoOf(int frame) {
+    return rolls[rollOffsetFor(frame) + 1];
+  }
+
+  private boolean isStrike(int frame) {
+    return rollOneOf(frame) == 10;
   }
 
   private int rollOffsetFor(int frame) {

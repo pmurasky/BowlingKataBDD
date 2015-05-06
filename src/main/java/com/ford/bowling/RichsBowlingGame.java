@@ -14,11 +14,15 @@ public class RichsBowlingGame implements BowlingGame {
       if (isStrike(rollOffset)) {
         score += getStrikeBonus(rollOffset);
       } else if (isSpare(rollOffset)) {
-        score += rolls[rollOffset + 2];
+        score += getSpareBonus(rollOffset);
       }
       score += getFrameBaseScore(rollOffset);
     }
     return score;
+  }
+
+  private int getSpareBonus(int rollOffset) {
+    return rolls[rollOffset + 2];
   }
 
   private boolean isSpare(int rollOffset) {
@@ -37,7 +41,7 @@ public class RichsBowlingGame implements BowlingGame {
   private int getStrikeBonus(int rollOffset) {
     int bonus = 0;
     if (rollOffset < 18) {
-      bonus = rolls[rollOffset + 2] + rolls[rollOffset + 3];
+      bonus = getSpareBonus(rollOffset) + rolls[rollOffset + 3];
       if (isStrike(rollOffset + 2)) {
         bonus += rolls[rollOffset + 4];
       }

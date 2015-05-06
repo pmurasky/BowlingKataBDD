@@ -43,7 +43,7 @@ public class RichsBowlingGame implements BowlingGame {
     int nextFrame = frame + 1;
     int bonus = 0;
     if (frame < 10) {
-      bonus += rollOneOf(nextFrame) + rollTwoOf(nextFrame);
+      bonus += getFrameBaseScore(nextFrame);
       if (isStrike(nextFrame) && rollTwoOf(nextFrame) == 0) {
         bonus += rollOneOf(nextFrame + 1);
       }

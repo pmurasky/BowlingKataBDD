@@ -30,7 +30,7 @@ public class RichsBowlingGame implements BowlingGame {
   }
 
   private boolean isSpare(int rollOffset) {
-    return !isStrike(rollOffset) && getFrameBaseScore(rollOffset) == 10;
+    return getFrameBaseScore(rollOffset) == 10;
   }
 
   private int getFrameBaseScore(int rollOffset) {
@@ -49,8 +49,9 @@ public class RichsBowlingGame implements BowlingGame {
     }
     return bonus;
   }
-
-  private boolean isStrike(int rollOffset) {
+  //what's making me nuts here is that we ended up with a frameless solution but frameness is coming into play
+//add method for firstBallOfFrameId and secondBallOfFrameId, frame ten might have bonusball?
+  private boolean isStrike(int rollOffset) { //change semantics back to frames
     return rolls[rollOffset] == 10;
   }
 

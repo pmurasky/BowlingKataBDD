@@ -32,17 +32,17 @@ public class RichsBowlingGame implements BowlingGame {
         }
         return score;
       }
-
+      
+      private boolean isStrike() {
+        return firstBall() == 10 && (tenthFrame || secondBall() == 0);
+      }
+      
+      private boolean isSpare() {
+        return baseScore() == 10 && secondBall() > 0;
+      }
+      
       private int baseScore() {
         return firstBall() + secondBall();
-      }
-
-      private int secondBall() {
-        return frameRolls[1];
-      }
-
-      private int firstBall() {
-        return frameRolls[0];
       }
 
       private int strikeBonus() {
@@ -62,33 +62,35 @@ public class RichsBowlingGame implements BowlingGame {
         }
         return bonus;
       }
-
-      private int firstBallOfNextFramesNextFrame() {
-        return frameRolls[4];
-      }
-
-      private int secondBallOfNextFrame() {
-        return frameRolls[3];
-      }
-
-      private int bonusBall() {
-        return firstBallOfNextFrame();
-      }
-      private int firstBallOfNextFrame() {
-        return frameRolls[2];
-      }
-
+      
       private int spareBonus() {
         return firstBallOfNextFrame();
       }
 
-      private boolean isStrike() {
-        return firstBall() == 10 && (tenthFrame || secondBall() == 0);
+      private int firstBall() {
+        return frameRolls[0];
       }
 
-      private boolean isSpare() {
-        return baseScore() == 10 && secondBall() > 0;
+      private int secondBall() {
+        return frameRolls[1];
+      }      
+
+      private int firstBallOfNextFrame() {
+        return frameRolls[2];
       }
+      
+      private int secondBallOfNextFrame() {
+        return frameRolls[3];
+      }
+
+      private int firstBallOfNextFramesNextFrame() {
+        return frameRolls[4];
+      }
+      
+      private int bonusBall() {
+        return firstBallOfNextFrame();
+      }
+
     }
     int altScore = 0;
     for (int frame = 1; frame < 11; frame++) {

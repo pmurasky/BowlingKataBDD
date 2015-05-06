@@ -69,4 +69,12 @@ public class BowlingTests {
     createFrame(10,10,10,10);
     assertThatScoreIs(300);
   }
+  
+  @Test
+  public void oneSpareIsTen() {
+    createFrame(1,8,2);
+    createFrames(9,2);
+    assertThatScoreIs(10);
+  }
+  
 }

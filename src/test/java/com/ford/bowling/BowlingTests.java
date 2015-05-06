@@ -100,4 +100,10 @@ public class BowlingTests {
     assertThatScoreIs(20);
   }
 
+  @Test
+  public void tenthFrameStrikeSpareIsTwenty() {
+    createFrames(9,1);
+    createFrame(10,10,0,10);
+    assertThatScoreIs(20);
+  }
 }

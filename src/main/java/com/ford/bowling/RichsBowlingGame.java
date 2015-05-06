@@ -1,6 +1,5 @@
 package com.ford.bowling;
 
-import java.util.Arrays;
 
 public class RichsBowlingGame implements BowlingGame {
 
@@ -41,10 +40,12 @@ public class RichsBowlingGame implements BowlingGame {
   private int getStrikeBonus(int rollOffset) {
     int bonus = 0;
     if (rollOffset < 18) {
-      bonus = getSpareBonus(rollOffset) + rolls[rollOffset + 3];
-      if (isStrike(rollOffset + 2)) {
+      bonus = rolls[rollOffset + 2] + rolls[rollOffset + 3];
+      if (rolls[rollOffset + 3] == 0 && isStrike(rollOffset + 2)) { 
         bonus += rolls[rollOffset + 4];
       }
+    } else {
+      bonus = rolls[rollOffset + 2];
     }
     return bonus;
   }

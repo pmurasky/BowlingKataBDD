@@ -48,7 +48,7 @@ public class RichsBowlingGame implements BowlingGame {
         bonus += rollOneOf(nextFrame + 1);
       }
     } else {
-      bonus += rollOneOf(nextFrame);
+      bonus += bonusBallOfFrame10();
     }
     return bonus;
   }
@@ -61,6 +61,10 @@ public class RichsBowlingGame implements BowlingGame {
     return rolls[rollOffsetFor(frame) + 1];
   }
 
+  private int bonusBallOfFrame10() {
+    return rolls[20];
+  }
+  
   private int rollOffsetFor(int frame) {
     return (frame - 1) * 2;
   }

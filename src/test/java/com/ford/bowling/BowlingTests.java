@@ -106,4 +106,5 @@ public class BowlingTests {
     createFrame(10, 10, 0, 10);
     assertThatScoreIs(20);
   }
+
 }

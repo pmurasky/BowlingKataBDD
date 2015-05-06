@@ -21,17 +21,17 @@ public class RichsBowlingGame implements BowlingGame {
     return score;
   }
 
-  private int getSpareBonus(int rollOffset) {
-    return rolls[rollOffset + 2];
-  }
-
-  private boolean isSpare(int rollOffset) {
-    return !isStrike(rollOffset) && getFrameBaseScore(rollOffset) == 10;
-  }
-
   @Override
   public void createFrame(int frame, int... rolls) {
     System.arraycopy(rolls, 0, this.rolls, rollOffsetFor(frame), rolls.length);
+  }
+  
+  private int getSpareBonus(int rollOffset) {
+    return rolls[rollOffset + 2];
+  }
+  
+  private boolean isSpare(int rollOffset) {
+    return !isStrike(rollOffset) && getFrameBaseScore(rollOffset) == 10;
   }
 
   private int getFrameBaseScore(int rollOffset) {

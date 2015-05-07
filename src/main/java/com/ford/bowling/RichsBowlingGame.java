@@ -14,7 +14,9 @@ public class RichsBowlingGame implements BowlingGame {
     int altScore = 0;
     for (int frame = 1; frame < 11; frame++) {
       int rollOffset = rollOffsetFor(frame);
-      altScore += new Frame(frame, rollOffset, rolls).getScore();
+      int[] frameRolls = new int[5];
+      System.arraycopy(rolls, rollOffset, frameRolls, 0, Math.min(5, 21 - rollOffset));
+      altScore += new Frame(frame, frameRolls).getScore();
     }
     return altScore;
   }
@@ -29,10 +31,10 @@ class Frame {
   private int[] frameRolls = new int[5];
   private boolean tenthFrame = false, ninthFrame = false;
   
-  Frame(int frameNumber, int rollOffset, int[] rolls) {
-    ninthFrame = frameNumber == 9; //rollOffset == 16;
-    tenthFrame = frameNumber == 10; //rollOffset == 18;
-    System.arraycopy(rolls, rollOffset, frameRolls, 0, Math.min(5, 21 - rollOffset));
+  Frame(int frameNumber, int[] rolls) {
+    ninthFrame = frameNumber == 9; 
+    tenthFrame = frameNumber == 10;
+    frameRolls = rolls;
   }
   
   int getScore() {

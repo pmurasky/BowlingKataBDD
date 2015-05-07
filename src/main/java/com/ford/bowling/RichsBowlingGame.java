@@ -22,8 +22,7 @@ public class RichsBowlingGame implements BowlingGame {
     int rollOffset = rollOffsetFor(frameId);
     int[] frameRolls = new int[5];
     System.arraycopy(rolls, rollOffset, frameRolls, 0, Math.min(5, 21 - rollOffset));
-    Frame frame = new Frame(frameId, frameRolls);
-    return frame;
+    return new Frame(frameId, frameRolls);
   }
 
   private int rollOffsetFor(int frame) {

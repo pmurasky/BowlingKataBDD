@@ -11,14 +11,19 @@ public class RichsBowlingGame implements BowlingGame {
 
   @Override
   public Integer getTotalScore() {
-    int altScore = 0;
-    for (int frame = 1; frame < 11; frame++) {
-      int rollOffset = rollOffsetFor(frame);
-      int[] frameRolls = new int[5];
-      System.arraycopy(rolls, rollOffset, frameRolls, 0, Math.min(5, 21 - rollOffset));
-      altScore += new Frame(frame, frameRolls).getScore();
+    int score = 0;
+    for (int frameId = 1; frameId < 11; frameId++) {
+      score += createFrame(frameId).getScore();
     }
-    return altScore;
+    return score;
+  }
+
+  private Frame createFrame(int frameId) {
+    int rollOffset = rollOffsetFor(frameId);
+    int[] frameRolls = new int[5];
+    System.arraycopy(rolls, rollOffset, frameRolls, 0, Math.min(5, 21 - rollOffset));
+    Frame frame = new Frame(frameId, frameRolls);
+    return frame;
   }
 
   private int rollOffsetFor(int frame) {

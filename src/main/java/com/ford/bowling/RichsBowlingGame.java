@@ -26,8 +26,8 @@ public class RichsBowlingGame implements BowlingGame {
 }
 
 class Frame {
-  int[] frameRolls = new int[5];
-  boolean tenthFrame = false, ninthFrame = false;
+  private int[] frameRolls = new int[5];
+  private boolean tenthFrame = false, ninthFrame = false;
   
   Frame(int frameNumber, int rollOffset, int[] rolls) {
     ninthFrame = rollOffset == 16;

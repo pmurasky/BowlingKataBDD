@@ -30,8 +30,8 @@ class Frame {
   private boolean tenthFrame = false, ninthFrame = false;
   
   Frame(int frameNumber, int rollOffset, int[] rolls) {
-    ninthFrame = rollOffset == 16;
-    tenthFrame = rollOffset == 18;
+    ninthFrame = frameNumber == 9; //rollOffset == 16;
+    tenthFrame = frameNumber == 10; //rollOffset == 18;
     System.arraycopy(rolls, rollOffset, frameRolls, 0, Math.min(5, 21 - rollOffset));
   }
   

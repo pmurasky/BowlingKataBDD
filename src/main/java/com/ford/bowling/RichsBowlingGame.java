@@ -23,7 +23,7 @@ public class RichsBowlingGame implements BowlingGame {
     tail = newFrame;
   }
 
-  class Frame {
+  private class Frame {
     private int frameId;
     private int[] frameRolls = new int[3];
     private Frame nextFrame;

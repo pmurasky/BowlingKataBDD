@@ -2,119 +2,134 @@ package com.ford.bowling;
 
 public class RichsBowlingGame implements BowlingGame {
 
-  private int[] rolls = new int[21];
+  private Frame head, tail;
 
   @Override
   public void createFrame(int frame, int... rolls) {
-    System.arraycopy(rolls, 0, this.rolls, rollOffsetFor(frame), rolls.length);
+    appendNewFrame(new Frame(frame, rolls));
   }
 
   @Override
   public Integer getTotalScore() {
-    int score = 0;
-    for (int frameId = 1; frameId < 11; frameId++) {
-      score += createFrame(frameId).getScore();
-    }
-    return score;
+    return head.getScore();
   }
 
-  private Frame createFrame(int frameId) {
-    int rollOffset = rollOffsetFor(frameId);
-    int[] frameRolls = new int[5];
-    System.arraycopy(rolls, rollOffset, frameRolls, 0, Math.min(5, 21 - rollOffset));
-    return new Frame(frameId, frameRolls);
-  }
-
-  private int rollOffsetFor(int frame) {
-    return (frame - 1) * 2;
-  }
-
-}
-
-class Frame {
-  private int[] frameRolls = new int[5];
-  private int frameId;
-
-  Frame(int frameNumber, int[] rolls) {
-    frameId = frameNumber;
-    frameRolls = rolls;
-  }
-
-  int getScore() {
-    int score = baseScore();
-    if (isStrike()) {
-      score += strikeBonus();
-    }
-    if (isSpare()) {
-      score += spareBonus();
-    }
-    return score;
-  }
-
-  private boolean isStrike() {
-    return firstBall() == 10 && (isTenthFrame() || secondBall() == 0);
-  }
-
-  private boolean nextFrameIsStrike() {
-    return firstBallOfNextFrame() == 10;
-  }
-
-  private boolean isSpare() {
-    return baseScore() == 10 && secondBall() > 0;
-  }
-
-  private int baseScore() {
-    return firstBall() + secondBall();
-  }
-
-  private int strikeBonus() {
-    int bonus = 0;
-    if (isTenthFrame()) {
-      bonus = bonusBall();
-    } else if (isNinthFrame()) {
-      bonus = firstBallOfNextFrame() + secondBallOfNextFrame();
-    } else if (nextFrameIsStrike()) {
-      bonus = firstBallOfNextFrame() + firstBallOfNextFramesNextFrame();
+  private void appendNewFrame(Frame newFrame) {
+    if (null == head) {
+      head = tail = newFrame;
     } else {
-      bonus = firstBallOfNextFrame() + secondBallOfNextFrame();
+      tail.setNextFrame(newFrame);
     }
-    return bonus;
+    tail = newFrame;
   }
 
-  private int spareBonus() {
-    return firstBallOfNextFrame();
-  }
+  class Frame {
+    private int frameId;
+    private int[] frameRolls = new int[3];
+    private Frame nextFrame;
 
-  private int firstBall() {
-    return frameRolls[0];
-  }
+    Frame(int frameNumber, int[] rolls) {
+      frameId = frameNumber;
+      System.arraycopy(rolls, 0, frameRolls, 0, rolls.length);
+    }
 
-  private int secondBall() {
-    return frameRolls[1];
-  }
+    int getScore() {
+      int score = baseScore();
+      if (isStrike()) {
+        score += strikeBonus();
+      }
+      if (isSpare()) {
+        score += spareBonus();
+      }
+      return score + getNextFramesScore();
+    }
 
-  private int firstBallOfNextFrame() {
-    return frameRolls[2];
-  }
+    private int getNextFramesScore() {
+      int score = 0;
+      if (null != nextFrame) {
+        score = nextFrame.getScore();
+      }
+      return score;
+    }
 
-  private int secondBallOfNextFrame() {
-    return frameRolls[3];
-  }
+    private boolean isStrike() {
+      return firstBall() == 10 && (isTenthFrame() || secondBall() == 0);
+    }
 
-  private int firstBallOfNextFramesNextFrame() {
-    return frameRolls[4];
-  }
+    private boolean nextFrameIsStrike() {
+      return firstBallOfNextFrame() == 10;
+    }
 
-  private int bonusBall() {
-    return firstBallOfNextFrame();
-  }
+    private boolean isSpare() {
+      return baseScore() == 10 && secondBall() > 0;
+    }
 
-  private boolean isTenthFrame() {
-    return frameId == 10;
-  }
+    private int baseScore() {
+      return firstBall() + secondBall();
+    }
 
-  private boolean isNinthFrame() {
-    return frameId == 9;
-  }
+    private int strikeBonus() {
+      int bonus = 0;
+      if (isTenthFrame()) {
+        bonus = bonusBall();
+      } else if (isNinthFrame()) {
+        bonus = firstBallOfNextFrame() + secondBallOfNextFrame();
+      } else if (nextFrameIsStrike()) {
+        bonus = firstBallOfNextFrame() + firstBallOfNextFramesNextFrame();
+      } else {
+        bonus = firstBallOfNextFrame() + secondBallOfNextFrame();
+      }
+      return bonus;
+    }
 
+    private int spareBonus() {
+      int bonus = 0;
+      if (isTenthFrame()) {
+        bonus = bonusBall();
+      } else {
+        bonus = firstBallOfNextFrame();
+      }
+      return bonus;
+    }
+
+    private int firstBall() {
+      return frameRolls[0];
+    }
+
+    private int secondBall() {
+      return frameRolls[1];
+    }
+
+    private int firstBallOfNextFrame() {
+      return getNextFrame().firstBall();
+    }
+
+    private int secondBallOfNextFrame() {
+      return getNextFrame().secondBall();
+    }
+
+    private int firstBallOfNextFramesNextFrame() {
+      return getNextFrame().getNextFrame().firstBall();
+    }
+
+    private int bonusBall() {
+      return frameRolls[2];
+    }
+
+    private boolean isTenthFrame() {
+      return frameId == 10;
+    }
+
+    private boolean isNinthFrame() {
+      return frameId == 9;
+    }
+
+    protected Frame getNextFrame() {
+      return nextFrame;
+    }
+
+    protected void setNextFrame(Frame frame) {
+      nextFrame = frame;
+    }
+  }
 }

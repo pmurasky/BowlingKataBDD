@@ -34,14 +34,13 @@ public class RichsBowlingGame implements BowlingGame {
 
 class Frame {
   private int[] frameRolls = new int[5];
-  private boolean tenthFrame = false, ninthFrame = false;
-  
+  private int frameId;
+
   Frame(int frameNumber, int[] rolls) {
-    ninthFrame = frameNumber == 9; 
-    tenthFrame = frameNumber == 10;
+    frameId = frameNumber;
     frameRolls = rolls;
   }
-  
+
   int getScore() {
     int score = baseScore();
     if (isStrike()) {
@@ -52,28 +51,28 @@ class Frame {
     }
     return score;
   }
-  
+
   private boolean isStrike() {
-    return firstBall() == 10 && (tenthFrame || secondBall() == 0);
+    return firstBall() == 10 && (isTenthFrame() || secondBall() == 0);
   }
-  
+
   private boolean nextFrameIsStrike() {
     return firstBallOfNextFrame() == 10;
   }
-  
+
   private boolean isSpare() {
     return baseScore() == 10 && secondBall() > 0;
   }
-  
+
   private int baseScore() {
     return firstBall() + secondBall();
   }
-  
+
   private int strikeBonus() {
     int bonus = 0;
-    if (tenthFrame) {
+    if (isTenthFrame()) {
       bonus = bonusBall();
-    } else if (ninthFrame) {
+    } else if (isNinthFrame()) {
       bonus = firstBallOfNextFrame() + secondBallOfNextFrame();
     } else if (nextFrameIsStrike()) {
       bonus = firstBallOfNextFrame() + firstBallOfNextFramesNextFrame();
@@ -82,33 +81,41 @@ class Frame {
     }
     return bonus;
   }
-  
+
   private int spareBonus() {
     return firstBallOfNextFrame();
   }
-  
+
   private int firstBall() {
     return frameRolls[0];
   }
-  
+
   private int secondBall() {
     return frameRolls[1];
   }
-  
+
   private int firstBallOfNextFrame() {
     return frameRolls[2];
   }
-  
+
   private int secondBallOfNextFrame() {
     return frameRolls[3];
   }
-  
+
   private int firstBallOfNextFramesNextFrame() {
     return frameRolls[4];
   }
-  
+
   private int bonusBall() {
     return firstBallOfNextFrame();
   }
-  
+
+  private boolean isTenthFrame() {
+    return frameId == 10;
+  }
+
+  private boolean isNinthFrame() {
+    return frameId == 9;
+  }
+
 }

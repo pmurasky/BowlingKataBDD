@@ -109,7 +109,54 @@ public class BowlingTests {
 
   @Test
   public void boundaryTestFiveRollsPerFrameScoresCorrectly() {
-    createFrames(10,1,10,0,10,10,10);
+    createFrames(10, 1, 10, 0, 10, 10, 10);
     assertThatScoreIs(280);
   }
+
+  @Test(expected = IllegalArgumentException.class)
+  public void dataValidationBallsSumToTenOrLess() {
+    createFrame(1, 6, 6);
+  }
+
+  @Test
+  public void dataValidationTenthFrameCanSumToTwenty() {
+    createFrame(10, 10, 10);
+  }
+
+  @Test(expected = IllegalArgumentException.class)
+  public void dataValidationNoFirstRollOverTen() {
+    createFrame(1, 11);
+  }
+
+  @Test(expected = IllegalArgumentException.class)
+  public void dataValidationNoSecondRollOverTen() {
+    createFrame(1, 0, 11);
+  }
+
+  @Test(expected = IllegalArgumentException.class)
+  public void dataValidationNoFirstRollUnderZero() {
+    createFrame(1, -1);
+  }
+
+  @Test(expected = IllegalArgumentException.class)
+  public void dataValidationNoSecondRollUnderZero() {
+    createFrame(1, 0, -1);
+  }
+
+  @Test
+  public void dataValidationTenthFrameCanSumMoreThanTenInFirstTwoBalls() {
+    createFrame(10, 10, 10);
+    assertThatScoreIs(20);
+  }
+  
+  @Test(expected = IllegalArgumentException.class)
+  public void dataValidationBonusBallCannotBeMoreThanTen() {
+    createFrame(10,0,0,11);
+  }
+  
+  @Test(expected = IllegalArgumentException.class)
+  public void dataValidationBonusBallCannotBeLessThanZero() {
+    createFrame(10,0,0,-1);
+  }
+  
 }

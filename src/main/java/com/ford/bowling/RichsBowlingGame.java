@@ -29,18 +29,35 @@ public class RichsBowlingGame implements BowlingGame {
     private int[] frameRolls = new int[MAX_ROLLS_IN_FRAME];
     private Frame nextFrame;
 
-    Frame(int frameNumber, int[] rolls) {
+    private Frame(int frameNumber, int[] rolls) {
       frameId = frameNumber;
       System.arraycopy(rolls, 0, frameRolls, 0, Math.min(MAX_ROLLS_IN_FRAME, rolls.length));
+      validate();
+    }
+    
+    private void validate() {
+      if ( !isTenthFrame() && firstBall() + secondBall() > 10 ) {
+        throw new IllegalArgumentException("The maximum per frame score is 10");
+      }
+      if ( 0 > firstBall() || firstBall() > 10) {
+        throw new IllegalArgumentException("A ball can score zero to 10 points.");
+      }
+      if ( 0 > secondBall() || secondBall() > 10) {
+        throw new IllegalArgumentException("A ball can score zero to 10 points.");
+      }
+      if ( 0 > bonusBall() || bonusBall() > 10 ) {
+        throw new IllegalArgumentException("The bonus ball can score zero to 10 points.");
+      }
     }
 
-    int getScore() {
-      int score = baseScore();
+    private int getScore() {
+      int score = firstBall();
       if (isStrike()) {
         score += strikeBonus();
-      }
-      if (isSpare()) {
-        score += spareBonus();
+      } else if (isSpare()) {
+        score += secondBall() + spareBonus();
+      } else {
+        score += secondBall();
       }
       return score + getNextFramesScore();
     }
@@ -54,7 +71,7 @@ public class RichsBowlingGame implements BowlingGame {
     }
 
     private boolean isStrike() {
-      return firstBall() == 10 && (isTenthFrame() || secondBall() == 0);
+      return firstBall() == 10;
     }
 
     private boolean nextFrameIsStrike() {
@@ -62,7 +79,7 @@ public class RichsBowlingGame implements BowlingGame {
     }
 
     private boolean isSpare() {
-      return baseScore() == 10 && secondBall() > 0;
+      return firstBall() + secondBall() == 10 && secondBall() > 0;
     }
 
     private int baseScore() {
@@ -72,7 +89,7 @@ public class RichsBowlingGame implements BowlingGame {
     private int strikeBonus() {
       int bonus = 0;
       if (isTenthFrame()) {
-        bonus = bonusBall();
+        bonus = secondBall() + bonusBall();
       } else if (isNinthFrame()) {
         bonus = firstBallOfNextFrame() + secondBallOfNextFrame();
       } else if (nextFrameIsStrike()) {

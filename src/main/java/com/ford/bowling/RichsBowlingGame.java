@@ -24,13 +24,14 @@ public class RichsBowlingGame implements BowlingGame {
   }
 
   private class Frame {
+    private static final int MAX_ROLLS_IN_FRAME = 3;
     private int frameId;
-    private int[] frameRolls = new int[3];
+    private int[] frameRolls = new int[MAX_ROLLS_IN_FRAME];
     private Frame nextFrame;
 
     Frame(int frameNumber, int[] rolls) {
       frameId = frameNumber;
-      System.arraycopy(rolls, 0, frameRolls, 0, rolls.length);
+      System.arraycopy(rolls, 0, frameRolls, 0, Math.min(MAX_ROLLS_IN_FRAME, rolls.length));
     }
 
     int getScore() {

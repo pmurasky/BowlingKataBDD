@@ -107,4 +107,9 @@ public class BowlingTests {
     assertThatScoreIs(20);
   }
 
+  @Test
+  public void boundaryTestFiveRollsPerFrameScoresCorrectly() {
+    createFrames(10,1,10,0,10,10,10);
+    assertThatScoreIs(280);
+  }
 }

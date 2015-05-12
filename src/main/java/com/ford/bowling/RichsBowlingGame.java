@@ -79,11 +79,7 @@ public class RichsBowlingGame implements BowlingGame {
     }
 
     private boolean isSpare() {
-      return firstBall() + secondBall() == 10 && secondBall() > 0;
-    }
-
-    private int baseScore() {
-      return firstBall() + secondBall();
+      return !isStrike() && firstBall() + secondBall() == 10;
     }
 
     private int strikeBonus() {

@@ -6,7 +6,7 @@ public class Frame {
 	private int roll2;
 	private int roll3;
 	private int frameNumber;
-
+	
 	public Frame(int frameNumber, int roll1, Integer roll2) {
 
 		this.frameNumber = frameNumber;
@@ -67,10 +67,13 @@ public class Frame {
 		}
 
 		int sum = this.roll1 + this.roll2;
-		if (sum > 10 || sum < 0) {
+		
+		
+		
+		if (this.frameNumber <10 &&  (sum > 10 || sum < 0))  {
 			throw new RuntimeException("Roll total invalid.");
 		}
 
 	}
-
+	
 }

@@ -45,16 +45,55 @@ public class BowlingGameTest {
 
 		Assert.assertTrue(game.getTotalScore() == 8);
 	}
-
-
-//	@Test
-//	public void testStrikeInFirstFrameFollowedByTwoGutterBalls() {
-//		BowlingGame game = new BowlingGame();
-//		game.createFrame(1, 10, null);
-//		Assert.assertEquals("before enough post-strike rolls", 0, game.getTotalScore());
-//		game.createFrame(2, 0, 0);
-//		Assert.assertEquals("after enough post-strike rolls", 10, game.getTotalScore());
-//	}
 	
 
+	@Test
+	public void testStrikeInFirstFrameFollowedByTwoGutterBalls() {
+		BowlingGame game = new BowlingGame();
+		game.createFrame(1, 10, null);
+		game.createFrame(2, 0, 0);
+		Assert.assertEquals("after enough post-strike rolls", 10, game.getTotalScore());
+	}
+	
+	@Test
+	public void testStrikeInFirstFrameFollowedBySecondFrameNoGutterBalls() {
+		BowlingGame game = new BowlingGame();
+		game.createFrame(1, 10, null);
+		game.createFrame(2, 2, 7);
+		Assert.assertEquals("after enough post-strike rolls", 28, game.getTotalScore());
+	}
+
+	@Test
+	public void testStrikeInFirstFrameWithNoSecondFrame() {
+		BowlingGame game = new BowlingGame();
+		game.createFrame(1, 10, null);
+		Assert.assertEquals("after enough post-strike rolls", 10, game.getTotalScore());
+	}
+	
+	@Test
+	public void testStrikeInFirstFrameWithStrikeInSecondFrame() {
+		BowlingGame game = new BowlingGame();
+		game.createFrame(1, 10, null);
+		game.createFrame(2, 10, null);
+		game.createFrame(3, 0, 0);
+		
+		Assert.assertEquals("after enough post-strike rolls", 30, game.getTotalScore());
+	}
+	@Test
+	public void testStrikeInFirstFrameWithStrikeInSecondFrameAndOneInThirdFrame() {
+		BowlingGame game = new BowlingGame();
+		game.createFrame(1, 10, null);
+		game.createFrame(2, 10, null);
+		game.createFrame(3, 1, 0);
+		Assert.assertEquals("after enough post-strike rolls", 33, game.getTotalScore());
+	}
+	
+	@Test
+	public void testForFirstThreeStrikes() {
+		BowlingGame game = new BowlingGame();
+		game.createFrame(1, 10, null);
+		game.createFrame(2, 10, null);
+		game.createFrame(3, 10, null);
+		Assert.assertEquals("after enough post-strike rolls",60 , game.getTotalScore());
+	}
 }

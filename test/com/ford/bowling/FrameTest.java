@@ -1,7 +1,6 @@
 package com.ford.bowling;
 
 import static org.junit.Assert.*;
-import junit.framework.Assert;
 
 import org.junit.Test;
 
@@ -68,4 +67,5 @@ public class FrameTest {
 		Frame frame = new Frame(3, 10, null);
 		assertTrue(frame.isStrike());
 	}
+	
 }

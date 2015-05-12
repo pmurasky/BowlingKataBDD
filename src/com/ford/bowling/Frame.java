@@ -7,6 +7,8 @@ public class Frame {
 	private int roll3;
 	private int frameNumber;
 	
+	private Frame nextFrame;
+	
 	public Frame(int frameNumber, int roll1, Integer roll2) {
 
 		this.frameNumber = frameNumber;
@@ -29,10 +31,6 @@ public class Frame {
 		} else {
 			this.roll3 = roll3;
 		}
-	}
-
-	public int getFrameNumber() {
-		return this.frameNumber;
 	}
 
 	public int getRoll1() {
@@ -74,6 +72,10 @@ public class Frame {
 			throw new RuntimeException("Roll total invalid.");
 		}
 
+	}
+
+	public boolean isSpare() {
+		return !isStrike() && 10 == roll1 + roll2;
 	}
 	
 }

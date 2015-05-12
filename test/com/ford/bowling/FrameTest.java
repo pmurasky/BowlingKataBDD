@@ -68,4 +68,18 @@ public class FrameTest {
 		assertTrue(frame.isStrike());
 	}
 	
+	@Test
+	public void frameKnowsItIsASpare() {
+		assertTrue(new Frame(1,5,5).isSpare());
+	}
+	
+	@Test
+	public void frameKnowsItsNotASpare() {
+		assertFalse(new Frame(1,3,3).isSpare());
+	}
+	
+	@Test
+	public void frameKnowsDifferenceBetweenStrikeAndSpare() {
+		assertFalse(new Frame(1,10,0).isSpare());
+	}
 }

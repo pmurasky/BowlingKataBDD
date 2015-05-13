@@ -31,6 +31,8 @@ public class FrameCalculatorTest {
 	}
 	
 	
+	
+	
 	@Test
 	public void testFrameScoreSpareSecondFrameTwoRolls() throws Exception {
 		Frame frame1 = new Frame(1, 5, 5);
@@ -38,4 +40,6 @@ public class FrameCalculatorTest {
 		Frame frame3 = new Frame(3, 10, null);
 		assertEquals(new FrameCalculator().calculateFrameScore(frame1, frame2, frame3), 12);
 	}
+	
+	
 }

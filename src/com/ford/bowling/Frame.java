@@ -6,9 +6,9 @@ public class Frame {
 	private int roll2;
 	private int roll3;
 	private int frameNumber;
-	
+
 	private Frame nextFrame;
-	
+
 	public Frame(int frameNumber, int roll1, Integer roll2) {
 
 		this.frameNumber = frameNumber;
@@ -18,7 +18,7 @@ public class Frame {
 		} else {
 			this.roll2 = roll2;
 		}
-		
+
 		validateFrameNumber();
 		validateRolls();
 
@@ -65,10 +65,8 @@ public class Frame {
 		}
 
 		int sum = this.roll1 + this.roll2;
-		
-		
-		
-		if (this.frameNumber <10 &&  (sum > 10 || sum < 0))  {
+
+		if (this.frameNumber < 10 && (sum > 10 || sum < 0)) {
 			throw new RuntimeException("Roll total invalid.");
 		}
 
@@ -77,5 +75,42 @@ public class Frame {
 	public boolean isSpare() {
 		return !isStrike() && 10 == roll1 + roll2;
 	}
-	
+
+	public void setNextFrame(Frame nextFrame) {
+		this.nextFrame = nextFrame;
+	}
+
+
+
+	public int calculateScore() {
+		int score = this.roll1 + getRoll2();
+
+		if (isTenthFrame()) {
+			score += getRoll3();
+		}
+		else {
+			if (isStrike()) {
+				score += nextFrame.getNextTwoRolls();
+			} else if (isSpare()) {
+				score += nextFrame.getRoll1();
+			}
+		}
+		return score;
+	}
+
+	private int getNextTwoRolls() {
+		if (isTenthFrame()) {
+			return this.roll1 + this.roll2;
+		}
+
+		if (isStrike())
+			return this.roll1 + this.nextFrame.getRoll1();
+		else
+			return this.roll1 + this.roll2;
+	}
+
+	private boolean isTenthFrame() {
+		return this.frameNumber == 10;
+	}
+
 }
